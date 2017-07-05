@@ -10,11 +10,11 @@ import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
 import org.jbehave.core.embedder.Embedder;
 import org.jbehave.core.embedder.EmbedderControls;
+import org.jbehave.core.io.CasePreservingResolver;
 import org.jbehave.core.io.CodeLocations;
 import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.io.StoryLoader;
 import org.jbehave.core.io.StoryPathResolver;
-import org.jbehave.core.io.UnderscoredCamelCaseResolver;
 import org.jbehave.core.junit.JUnitStory;
 import org.jbehave.core.reporters.FilePrintStreamFactory.ResolveToPackagedName;
 import org.jbehave.core.reporters.StoryReporterBuilder;
@@ -66,7 +66,7 @@ public abstract class BaseBDDTest extends JUnitStory {
     }
 
     private StoryPathResolver storyPathResolver() {
-        return new UnderscoredCamelCaseResolver();
+        return new CasePreservingResolver();
     }
 
     private StoryLoader storyLoader() {

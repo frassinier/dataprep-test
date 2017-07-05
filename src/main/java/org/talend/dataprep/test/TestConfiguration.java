@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TestConfiguration {
 
-    @Bean
+    @Bean(destroyMethod = "quit")
     public WebDriver driverProvider() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         return new ChromeDriver();
