@@ -80,7 +80,7 @@ public class SSOSteps {
     @When("I dismiss on boarding")
     public void dismissOnBoarding() {
         final WebDriverWait webDriverWait = new WebDriverWait(webDriver, 30);
-        final WebElement onBoardingOverlay = webDriverWait.until(elementToBeClickable(By.cssSelector(".introjs-overlay")));
+        final WebElement onBoardingOverlay = webDriverWait.until(elementToBeClickable(By.cssSelector(".introjs-skipbutton")));
         onBoardingOverlay.click();
         webDriverWait.until((d) -> d.findElements(By.cssSelector(".introjs-overlay")).size() == 0);
     }

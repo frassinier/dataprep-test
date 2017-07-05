@@ -9,5 +9,5 @@ In order to use it in a preparation
 
 Scenario: upload dataset
 Given Jimmy is logged in
-When I create a dataset from file using /home/jsomsanith/Documents/workspace/data-prep-ops/sample_files/actions.csv
+When I create a dataset from file using actions.csv
 Then dataset actions is opened
