@@ -19,7 +19,6 @@ public class HugeServiceSteps {
     private int x;
     private int result;
 
-
     @Given("a variable x with value $value")
     public void givenXValue(@Named("value") int value) {
         this.x = value;

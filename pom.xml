@@ -24,47 +24,38 @@
 		<java.version>1.8</java.version>
         <jbehave.version>4.1.1</jbehave.version>
         <jbehave-site.version>3.3.1</jbehave-site.version>
-        <jbehave.web.version>3.5.5</jbehave.web.version>
+        <selenium.version>3.4.0</selenium.version>
 	</properties>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-core</artifactId>
             <version>${jbehave.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jbehave</groupId>
             <artifactId>jbehave-spring</artifactId>
             <version>${jbehave.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jbehave.web</groupId>
-            <artifactId>jbehave-web-selenium</artifactId>
-            <version>${jbehave.web.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium.fluent</groupId>
-            <artifactId>fluent-selenium</artifactId>
-            <version>1.18</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -72,7 +63,6 @@
             <artifactId>jbehave-site-resources</artifactId>
             <version>${jbehave-site.version}</version>
             <type>zip</type>
-            <scope>test</scope>
         </dependency>
 
 	</dependencies>
