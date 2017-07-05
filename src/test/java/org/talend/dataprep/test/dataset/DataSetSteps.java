@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.talend.dataprep.test.Steps;
 
+import java.awt.*;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 /**
@@ -22,7 +24,7 @@ public class DataSetSteps {
 
 
     @When("I create a dataset from file using $filename")
-    public void whenICreateDataSetFromFile(String fileName) {
+    public void whenICreateDataSetFromFile(String fileName) throws AWTException {
         iListDataSets();
 
         final WebDriverWait wait = new WebDriverWait(webDriver, 30);
@@ -34,13 +36,12 @@ public class DataSetSteps {
         importLocalFile.click();
 
         final WebElement fileInput = webDriver.findElement(By.id("importDatasetFile"));
-        fileInput.click();
         fileInput.sendKeys(fileName);
     }
 
     @Then("dataset $datasetName is opened")
     public void datasetIsOpened(String datasetName) {
-        final WebDriverWait wait = new WebDriverWait(webDriver, 10);
+        final WebDriverWait wait = new WebDriverWait(webDriver, 30);
         wait.until((driver) -> driver.getTitle().equals(datasetName + " | Talend"));
     }
 

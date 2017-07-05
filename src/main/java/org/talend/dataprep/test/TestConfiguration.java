@@ -13,7 +13,7 @@ public class TestConfiguration {
 
     @Bean(destroyMethod = "quit")
     public WebDriver driverProvider() {
-        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
         return new ChromeDriver();
     }
 
