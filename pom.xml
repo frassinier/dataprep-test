@@ -1,106 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.talend.dataprep</groupId>
-	<artifactId>dataprep-test</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <groupId>org.talend.dataprep</groupId>
+    <artifactId>dataprep-test-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-	<name>dataprep-test-auto-poc</name>
-	<description>Tests auto poc for dataprep</description>
+    <name>dataprep test parent</name>
+    <description>Parent pom for all dataprep test modules</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.4.RELEASE</version>
-		<relativePath/>
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.4.RELEASE</version>
+        <relativePath/>
+    </parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
         <jbehave.version>4.1.1</jbehave.version>
         <jbehave-site.version>3.3.1</jbehave-site.version>
         <selenium.version>3.4.0</selenium.version>
-	</properties>
+        <spring-boot.version>1.5.4.RELEASE</spring-boot.version>
+    </properties>
 
-	<dependencies>
+    <dependencyManagement>
+        <dependencies>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>3.4.0</version>
-        </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>${selenium.version}</version>
+            </dependency>
 
-
-        <dependency>
-            <groupId>org.jbehave</groupId>
-            <artifactId>jbehave-core</artifactId>
-            <version>${jbehave.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jbehave</groupId>
-            <artifactId>jbehave-spring</artifactId>
-            <version>${jbehave.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jbehave.site</groupId>
-            <artifactId>jbehave-site-resources</artifactId>
-            <version>${jbehave-site.version}</version>
-            <type>zip</type>
-        </dependency>
-
-    </dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
-            <plugin>
+            <dependency>
                 <groupId>org.jbehave</groupId>
-                <artifactId>jbehave-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>map-stories</id>
-                        <phase>integration-test</phase>
-                        <configuration>
-                            <includes>
-                                <include>**/*.story</include>
-                            </includes>
-                            <metaFilters>
-                                <metaFilter>+author *</metaFilter>
-                                <metaFilter>+theme *</metaFilter>
-                                <metaFilter>-skip</metaFilter>
-                            </metaFilters>
-                        </configuration>
-                        <goals>
-                            <goal>map-stories-as-paths</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <artifactId>jbehave-core</artifactId>
+                <version>${jbehave.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jbehave</groupId>
+                <artifactId>jbehave-spring</artifactId>
+                <version>${jbehave.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jbehave.site</groupId>
+                <artifactId>jbehave-site-resources</artifactId>
+                <version>${jbehave-site.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.talend.dataprep</groupId>
+                <artifactId>dataprep-test</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
             <plugin>
                 <groupId>org.jbehave</groupId>
                 <artifactId>jbehave-maven-plugin</artifactId>
+                <version>${jbehave.version}</version>
                 <executions>
                     <execution>
                         <id>map-stories</id>
@@ -126,6 +114,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
                         <id>unpack-jbehave-site-resources</id>
@@ -166,7 +155,7 @@
                 </executions>
             </plugin>
 
-		</plugins>
-	</build>
+        </plugins>
+    </build>
 
 </project>

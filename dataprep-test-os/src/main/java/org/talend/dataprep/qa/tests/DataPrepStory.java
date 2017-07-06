@@ -111,6 +111,8 @@ public abstract class DataPrepStory extends JUnitStory {
             beanFactory.autowireBeanProperties(step.getValue(), AutowireCapableBeanFactory.AUTOWIRE_NO, false);
             beanFactory.initializeBean(step.getValue(), step.getKey());
         }
+
+        localWebDriver.get("http://dev.data-prep-ee.talend.lan:9999");
     }
 
     @AfterStory

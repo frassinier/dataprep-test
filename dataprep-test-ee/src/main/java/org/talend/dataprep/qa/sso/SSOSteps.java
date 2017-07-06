@@ -43,9 +43,6 @@ public class SSOSteps extends DataPrepSteps {
     @When("I log in dataprep as $username using $password as password")
     public void whenILogIn(@Named("username") String username, String password) {
 
-        // given
-        webDriver.get("http://dev.data-prep-ee.talend.lan:9999");
-
         // when
         assertTrue("The page should redirect to Talend login.", BE_ON_LOGIN_PAGE.test(webDriver));
 
