@@ -8,4 +8,6 @@ import org.talend.dataprep.qa.tests.DataPrepStory;
  */
 @Component
 public class DataSetStory extends DataPrepStory {
+
+
 }

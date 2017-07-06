@@ -5,6 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class DataPrepSteps {
 
-    @Autowired
+    @Autowired(required = false)
     protected WebDriver webDriver;
 }

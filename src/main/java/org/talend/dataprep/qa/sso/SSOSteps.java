@@ -32,9 +32,6 @@ public class SSOSteps extends DataPrepSteps {
     private static final Function<? super WebDriver, Boolean> BE_ON_TDP_PAGE = d -> d.getTitle().startsWith("Data Preparation");
 
 
-    @Autowired
-    private WebDriver webDriver;
-
     private Map<String, User> users = new HashMap<>();
 
 

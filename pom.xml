@@ -65,7 +65,7 @@
             <type>zip</type>
         </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>
