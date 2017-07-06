@@ -5,16 +5,19 @@ import org.jbehave.core.annotations.BeforeStory;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.junit.JUnitStory;
 import org.jbehave.core.steps.InjectableStepsFactory;
+import org.talend.dataprep.qa.sso.SSOSteps;
 
 /**
  *
  */
-public class DataPrepWrapperStory extends JUnitStory {
+public class LoginStoryWrapper extends JUnitStory {
 
+    private final SSOSteps ssoSteps;
     private DataPrepStory story;
 
-    public DataPrepWrapperStory(final DataPrepStory story) {
+    public LoginStoryWrapper(final DataPrepStory story, SSOSteps ssoSteps) {
         this.story = story;
+        this.ssoSteps = ssoSteps;
     }
 
     @Override
@@ -30,14 +33,13 @@ public class DataPrepWrapperStory extends JUnitStory {
     @BeforeStory
     public void beforeStory() {
         this.story.beforeStory();
-
-        // login
+        ssoSteps.whenILogIn("jimmy@dataprep.com", "jimmy");
+        ssoSteps.thenIAmLoggedIn();
     }
 
     @AfterStory
     public void afterStory() {
         this.story.afterStory();
-
         // logout ?
     }
 }

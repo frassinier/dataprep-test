@@ -5,13 +5,13 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.talend.dataprep.qa.tests.DefaultStoryRunner;
+import org.talend.dataprep.qa.tests.StoryRunner;
 
 @SpringBootApplication
 public class DataPrepTestApplication implements ApplicationRunner {
 
     @Autowired
-    private DefaultStoryRunner storyRunner;
+    private StoryRunner storyRunner;
 
     public static void main(String[] args) {
         SpringApplication.run(DataPrepTestApplication.class, args);

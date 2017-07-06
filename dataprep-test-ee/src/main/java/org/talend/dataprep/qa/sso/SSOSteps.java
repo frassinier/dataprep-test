@@ -11,7 +11,6 @@ import java.util.function.Predicate;
 import javax.annotation.PostConstruct;
 
 import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.By;
@@ -40,7 +39,7 @@ public class SSOSteps extends DataPrepSteps {
     }
 
     @When("I log in dataprep as $username using $password as password")
-    public void whenILogIn(@Named("username") String username, String password) {
+    public void whenILogIn(String username, String password) {
 
         // when
         assertTrue("The page should redirect to Talend login.", BE_ON_LOGIN_PAGE.test(webDriver));

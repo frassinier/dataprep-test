@@ -8,6 +8,7 @@ import java.util.List;
  *
  */
 public abstract class StoryRunner {
+
     @Autowired
     List<DataPrepStory> stories;
 
