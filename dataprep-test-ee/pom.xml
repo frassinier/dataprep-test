@@ -16,6 +16,10 @@
         <relativePath>..</relativePath>
   	</parent>
 
+    <properties>
+        <start-class>org.talend.dataprep.DataPrepTestApplication</start-class>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.talend.dataprep</groupId>
