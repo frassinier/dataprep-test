@@ -1,4 +1,4 @@
-package org.talend.dataprep.test.dataset;
+package org.talend.dataprep.qa.dataset;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
@@ -17,18 +17,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.talend.dataprep.test.Steps;
+import org.springframework.stereotype.Component;
+import org.talend.dataprep.qa.tests.DataPrepSteps;
 
 /**
  *
  */
-@Steps
-public class DataSetSteps {
-
-    @Autowired
-    private WebDriver webDriver;
-
+@Component
+public class DataSetSteps extends DataPrepSteps {
 
     @When("I create a dataset from file using $filename")
     public void whenICreateDataSetFromFile(String fileName) throws AWTException, IOException {
@@ -70,5 +66,12 @@ public class DataSetSteps {
         final WebDriverWait wait = new WebDriverWait(webDriver, 30);
         final WebElement userMenu = wait.until(elementToBeClickable(By.id("side-panel-nav-datasets")));
         userMenu.click();
+    }
+
+    /**
+     * @param webDriver the webDriver to set.
+     */
+    public void setWebDriver(WebDriver webDriver) {
+        this.webDriver = webDriver;
     }
 }

@@ -1,4 +1,4 @@
-package org.talend.dataprep.test.sso;
+package org.talend.dataprep.qa.sso;
 
 import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
+import javax.annotation.PostConstruct;
 
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Named;
@@ -17,30 +19,29 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.talend.dataprep.test.Steps;
-
-import javax.annotation.PostConstruct;
+import org.springframework.stereotype.Component;
+import org.talend.dataprep.qa.tests.DataPrepSteps;
 
 /**
  *
  */
-@Steps
-public class SSOSteps {
+@Component
+public class SSOSteps extends DataPrepSteps {
 
     private static final Predicate<WebDriver> BE_ON_LOGIN_PAGE = d -> d.getTitle().startsWith("Talend - Login");
     private static final Function<? super WebDriver, Boolean> BE_ON_TDP_PAGE = d -> d.getTitle().startsWith("Data Preparation");
 
 
+    @Autowired
+    private WebDriver webDriver;
+
     private Map<String, User> users = new HashMap<>();
+
 
     @PostConstruct
     public void init() {
         users.put("Jimmy", new User("jimmy@dataprep.com", "jimmy"));
     }
-
-
-    @Autowired
-    private WebDriver webDriver;
 
     @When("I log in dataprep as $username using $password as password")
     public void whenILogIn(@Named("username") String username, String password) {
