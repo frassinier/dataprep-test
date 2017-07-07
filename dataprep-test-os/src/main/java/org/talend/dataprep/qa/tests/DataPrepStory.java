@@ -28,6 +28,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,7 +48,11 @@ public abstract class DataPrepStory extends JUnitStory {
     @Autowired
     private ConfigurableApplicationContext applicationContext;
 
+    @Value("${base.url}")
+    private String baseUrl;
+
     private WebDriver localWebDriver;
+
 
     public DataPrepStory() {
         Embedder embedder = new Embedder();
@@ -71,13 +76,11 @@ public abstract class DataPrepStory extends JUnitStory {
     }
 
     private EmbedderControls embedderControls() {
-        return new EmbedderControls()
-                .doIgnoreFailureInView(true);
+        return new EmbedderControls().doIgnoreFailureInView(true);
     }
 
     private ParameterControls parameterControls() {
-        return new ParameterControls()
-                .useDelimiterNamedParameters(true);
+        return new ParameterControls().useDelimiterNamedParameters(true);
     }
 
     private StoryPathResolver storyPathResolver() {
@@ -100,6 +103,7 @@ public abstract class DataPrepStory extends JUnitStory {
     @BeforeStory
     public void beforeStory() {
 
+        // inject a new instance of the WebDriver into every steps before each story
         localWebDriver = new ChromeDriver();
 
         ConfigurableListableBeanFactory bf = applicationContext.getBeanFactory();
@@ -112,7 +116,7 @@ public abstract class DataPrepStory extends JUnitStory {
             beanFactory.initializeBean(step.getValue(), step.getKey());
         }
 
-        localWebDriver.get("http://dev.data-prep-ee.talend.lan:9999");
+        localWebDriver.get(baseUrl);
     }
 
     @AfterStory

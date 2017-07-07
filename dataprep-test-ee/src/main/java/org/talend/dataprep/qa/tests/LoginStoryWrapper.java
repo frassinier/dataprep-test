@@ -22,7 +22,8 @@ public class LoginStoryWrapper extends JUnitStory {
 
     @Override
     public Configuration configuration() {
-        return this.story.configuration();
+        final Configuration configuration = this.story.configuration();
+        return configuration.useStoryPathResolver(new LoginStoryWrapperPathResolver(story));
     }
 
     @Override
