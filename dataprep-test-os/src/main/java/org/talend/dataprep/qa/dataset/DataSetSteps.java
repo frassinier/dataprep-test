@@ -1,6 +1,13 @@
 package org.talend.dataprep.qa.dataset;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import org.apache.commons.io.IOUtils;
+import org.jbehave.core.annotations.Then;
+import org.jbehave.core.annotations.When;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.springframework.stereotype.Component;
+import org.talend.dataprep.qa.tests.DataPrepSteps;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -10,15 +17,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import org.apache.commons.io.IOUtils;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.stereotype.Component;
-import org.talend.dataprep.qa.tests.DataPrepSteps;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 /**
  *
@@ -38,8 +37,6 @@ public class DataSetSteps extends DataPrepSteps {
             IOUtils.copyLarge(input, fileOutputStream);
         }
 
-        final WebDriverWait wait = new WebDriverWait(webDriver, 30);
-
         final WebElement addDataSetDropDown = wait.until(elementToBeClickable(By.id("datasets-list-actions-dataset:create")));
         addDataSetDropDown.click();
 
@@ -57,13 +54,11 @@ public class DataSetSteps extends DataPrepSteps {
 
     @Then("dataset $datasetName is opened")
     public void datasetIsOpened(String datasetName) {
-        final WebDriverWait wait = new WebDriverWait(webDriver, 30);
         wait.until((driver) -> driver.getTitle().endsWith(datasetName + " | Talend"));
     }
 
     @When("I list datasets")
     public void iListDataSets(){
-        final WebDriverWait wait = new WebDriverWait(webDriver, 30);
         final WebElement userMenu = wait.until(elementToBeClickable(By.id("side-panel-nav-datasets")));
         userMenu.click();
     }

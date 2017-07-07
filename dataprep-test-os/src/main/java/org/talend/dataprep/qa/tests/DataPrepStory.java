@@ -47,7 +47,6 @@ public abstract class DataPrepStory extends JUnitStory {
 
     private WebDriver localWebDriver;
 
-
     public DataPrepStory() {
         Embedder embedder = new Embedder();
         embedder.useEmbedderControls(embedderControls());

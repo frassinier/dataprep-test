@@ -1,24 +1,22 @@
 package org.talend.dataprep.qa.sso;
 
-import static org.junit.Assert.assertTrue;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
-import javax.annotation.PostConstruct;
-
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
 import org.talend.dataprep.qa.tests.DataPrepSteps;
+
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+import static org.junit.Assert.assertTrue;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 /**
  *
@@ -57,8 +55,7 @@ public class SSOSteps extends DataPrepSteps {
 
     @Then("I am logged in dataprep")
     public void thenIAmLoggedIn() {
-        final WebDriverWait webDriverWait = new WebDriverWait(webDriver, 30);
-        assertTrue("The page should redirect to TDP.",  webDriverWait.until(BE_ON_TDP_PAGE));
+        assertTrue("The page should redirect to TDP.",  wait.until(BE_ON_TDP_PAGE));
     }
 
 
@@ -72,10 +69,9 @@ public class SSOSteps extends DataPrepSteps {
 
     @When("I dismiss on boarding")
     public void dismissOnBoarding() {
-        final WebDriverWait webDriverWait = new WebDriverWait(webDriver, 30);
-        final WebElement onBoardingOverlay = webDriverWait.until(elementToBeClickable(By.cssSelector(".introjs-skipbutton")));
+        final WebElement onBoardingOverlay = wait.until(elementToBeClickable(By.cssSelector(".introjs-skipbutton")));
         onBoardingOverlay.click();
-        webDriverWait.until((d) -> d.findElements(By.cssSelector(".introjs-overlay")).size() == 0);
+        wait.until((d) -> d.findElements(By.cssSelector(".introjs-overlay")).size() == 0);
     }
 
 

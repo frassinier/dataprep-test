@@ -2,6 +2,7 @@ package org.talend.dataprep.qa.tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -23,14 +24,19 @@ public class BeforeAndAfterStoryDelegate {
     @Value("${base.url}")
     protected String baseUrl;
 
+    @Value("${timeout.sec}")
+    protected int timeoutInSec;
+
     protected WebDriver localWebDriver;
 
     public void beforeStory() {
         // inject a new instance of the WebDriver into every steps before each story
         localWebDriver = new ChromeDriver();
+        final WebDriverWait webDriverWait = new WebDriverWait(localWebDriver, timeoutInSec);
 
         ConfigurableListableBeanFactory bf = applicationContext.getBeanFactory();
         bf.registerResolvableDependency(WebDriver.class, localWebDriver);
+        bf.registerResolvableDependency(WebDriverWait.class, webDriverWait);
 
         final Map<String, DataPrepSteps> steps = applicationContext.getBeansOfType(DataPrepSteps.class);
         AutowireCapableBeanFactory beanFactory = applicationContext.getAutowireCapableBeanFactory();
