@@ -1,9 +1,16 @@
 package org.talend.dataprep.qa.tests;
 
+import static org.jbehave.core.reporters.Format.ANSI_CONSOLE;
+import static org.jbehave.core.reporters.Format.HTML;
+import static org.jbehave.core.reporters.Format.TXT;
+
+import java.util.Arrays;
+
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
 import org.jbehave.core.embedder.Embedder;
 import org.jbehave.core.embedder.EmbedderControls;
+import org.jbehave.core.failures.SilentlyAbsorbingFailure;
 import org.jbehave.core.io.CasePreservingResolver;
 import org.jbehave.core.io.CodeLocations;
 import org.jbehave.core.io.LoadFromClasspath;
@@ -16,23 +23,15 @@ import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.ParameterControls;
 import org.jbehave.core.steps.spring.SpringStepsFactory;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.talend.dataprep.qa.configuration.SeleniumConfiguration;
 
-import java.util.Arrays;
-
-import static org.jbehave.core.reporters.Format.ANSI_CONSOLE;
-import static org.jbehave.core.reporters.Format.HTML;
-import static org.jbehave.core.reporters.Format.TXT;
-
 /**
- *
+ * Abstract class used as base for all DataPrep stories.
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -41,11 +40,6 @@ public abstract class DataPrepStory extends JUnitStory {
 
     @Autowired
     private ConfigurableApplicationContext applicationContext;
-
-    @Value("${base.url}")
-    private String baseUrl;
-
-    private WebDriver localWebDriver;
 
     public DataPrepStory() {
         Embedder embedder = new Embedder();
@@ -56,10 +50,11 @@ public abstract class DataPrepStory extends JUnitStory {
 
     @Override
     public Configuration configuration() {
-        return new MostUsefulConfiguration()
-                .useStoryPathResolver(storyPathResolver())
-                .useStoryLoader(storyLoader())
-                .useStoryReporterBuilder(storyReporterBuilder())
+        return new MostUsefulConfiguration() //
+                .useStoryPathResolver(storyPathResolver()) //
+                .useStoryLoader(storyLoader()) //
+                .useStoryReporterBuilder(storyReporterBuilder()) //
+                .useFailureStrategy(new SilentlyAbsorbingFailure()) //
                 .useParameterControls(parameterControls());
     }
 

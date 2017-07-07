@@ -19,22 +19,28 @@ import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 /**
- *
+ * SSO related steps.
  */
 @Component
 public class SSOSteps extends DataPrepSteps {
 
+
+    /** Make sure we're on the login page. */
     private static final Predicate<WebDriver> BE_ON_LOGIN_PAGE = d -> d.getTitle().startsWith("Talend - Login");
+    /** Make sure we're on the TDP home page.*/
     private static final Function<? super WebDriver, Boolean> BE_ON_TDP_PAGE = d -> d.getTitle().startsWith("Data Preparation");
 
-
+    /** Holds all registered users*/
     private Map<String, User> users = new HashMap<>();
 
-
+    /**
+     * Init all users.
+     */
     @PostConstruct
     public void init() {
         users.put("Jimmy", new User("jimmy@dataprep.com", "jimmy"));
     }
+
 
     @When("I log in dataprep as $username using $password as password")
     public void whenILogIn(String username, String password) {
@@ -80,37 +86,17 @@ public class SSOSteps extends DataPrepSteps {
         private String username;
         private String password;
 
-        public User(String username, String password) {
+        User(String username, String password) {
             this.username = username;
             this.password = password;
         }
 
-        /**
-         * @return the Username
-         */
-        public String getUsername() {
+        String getUsername() {
             return username;
         }
 
-        /**
-         * @param username the username to set.
-         */
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        /**
-         * @return the Password
-         */
-        public String getPassword() {
+        String getPassword() {
             return password;
-        }
-
-        /**
-         * @param password the password to set.
-         */
-        public void setPassword(String password) {
-            this.password = password;
         }
     }
 }

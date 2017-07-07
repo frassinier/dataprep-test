@@ -25,7 +25,6 @@ public class EEBeforeAndAfterStoryDelegate extends BeforeAndAfterStoryDelegate {
     @Override
     public void afterStory() {
         super.afterStory();
-
         // logout ?
     }
 }

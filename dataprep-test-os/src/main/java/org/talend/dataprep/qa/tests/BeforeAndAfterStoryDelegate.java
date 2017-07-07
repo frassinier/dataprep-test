@@ -13,31 +13,41 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * 
+ * OS dataprep Before / After story delegate.
+ *
+ * It deals with web driver initialization / destruction before / after each story.
+ *
+ * @see DataPrepBeforeAndAfterStory
  */
 @Component(value = "osBafDelegate")
 public class BeforeAndAfterStoryDelegate {
 
     @Autowired
-    protected ConfigurableApplicationContext applicationContext;
+    private ConfigurableApplicationContext applicationContext;
 
     @Value("${base.url}")
-    protected String baseUrl;
+    private String baseUrl;
 
     @Value("${timeout.sec}")
-    protected int timeoutInSec;
+    private int timeoutInSec;
 
-    protected WebDriver localWebDriver;
+    /** Current web driver instance. */
+    private WebDriver currentWebDriver;
 
+    /**
+     * Init the new webDriver.
+     */
     public void beforeStory() {
         // inject a new instance of the WebDriver into every steps before each story
-        localWebDriver = new ChromeDriver();
-        final WebDriverWait webDriverWait = new WebDriverWait(localWebDriver, timeoutInSec);
+        currentWebDriver = new ChromeDriver();
+        final WebDriverWait webDriverWait = new WebDriverWait(currentWebDriver, timeoutInSec);
 
+        // have the current web driver instance registered in the application context.
         ConfigurableListableBeanFactory bf = applicationContext.getBeanFactory();
-        bf.registerResolvableDependency(WebDriver.class, localWebDriver);
+        bf.registerResolvableDependency(WebDriver.class, currentWebDriver);
         bf.registerResolvableDependency(WebDriverWait.class, webDriverWait);
 
+        // update all the Steps with the current web driver implementation
         final Map<String, DataPrepSteps> steps = applicationContext.getBeansOfType(DataPrepSteps.class);
         AutowireCapableBeanFactory beanFactory = applicationContext.getAutowireCapableBeanFactory();
         for (Map.Entry<String, DataPrepSteps> step : steps.entrySet()) {
@@ -45,10 +55,14 @@ public class BeforeAndAfterStoryDelegate {
             beanFactory.initializeBean(step.getValue(), step.getKey());
         }
 
-        localWebDriver.get(baseUrl);
+        // open the base url
+        currentWebDriver.get(baseUrl);
     }
 
+    /**
+     * Cleanup the webdriver.
+     */
     public void afterStory() {
-        localWebDriver.quit();
+        currentWebDriver.quit();
     }
 }

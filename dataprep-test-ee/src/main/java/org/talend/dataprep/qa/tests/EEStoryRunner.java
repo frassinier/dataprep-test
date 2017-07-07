@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * EE stories runner.
  */
 @Service
 @Primary
@@ -19,16 +19,19 @@ public class EEStoryRunner extends StoryRunner {
     @Autowired
     protected ConfigurableApplicationContext applicationContext;
 
-    private List<DataPrepStory> osStories = new ArrayList<>();
-
-    private List<DataPrepStory> eeStories = new ArrayList<>();
-
     @Autowired
     private EEBeforeAndAfterStoryDelegate eeBafDelegate;
 
     @Autowired
     private DataPrepBeforeAndAfterStory baf;
 
+    private List<DataPrepStory> osStories = new ArrayList<>();
+
+    private List<DataPrepStory> eeStories = new ArrayList<>();
+
+    /**
+     * Sort the stories between OS and EE.s
+     */
     @PostConstruct
     public void init() {
         stories.forEach(story -> {
@@ -42,26 +45,14 @@ public class EEStoryRunner extends StoryRunner {
 
     @Override
     public void runStories() throws Throwable {
+
+        // first run all EE stories
         for (DataPrepStory story : eeStories) {
             story.run();
         }
 
-//        final DataPrepBeforeAndAfterStory eeBafStory = new EEDataPrepBeforeAndAfterStory();
-//        final AutowireCapableBeanFactory beanFactory = applicationContext.getAutowireCapableBeanFactory();
-//        beanFactory.autowireBeanProperties(eeBafStory, AutowireCapableBeanFactory.AUTOWIRE_NO, false);
-//        beanFactory.initializeBean(eeBafStory, bafStory.getKey());
-
-//        ConfigurableListableBeanFactory bf = applicationContext.getBeanFactory();
-//        bf.registerResolvableDependency(BeforeAndAfterStoryDelegate.class, eeBafDelegate);
-
-//        final AutowireCapableBeanFactory beanFactory = applicationContext.getAutowireCapableBeanFactory();
-//        final Map<String, BeforeAndAfterStoryDelegate> bafStories = applicationContext.getBeansOfType(BeforeAndAfterStoryDelegate.class);
-//        for (Map.Entry<String, BeforeAndAfterStoryDelegate> bafStory : bafStories.entrySet()) {
-//            beanFactory.autowireBeanProperties(bafStory.getValue(), AutowireCapableBeanFactory.AUTOWIRE_NO, false);
-//            beanFactory.initializeBean(bafStory.getValue(), bafStory.getKey());
-//        }
-
-        baf.setBeforeAndAfterStoryImpl(eeBafDelegate);
+        // update the before and after story to add the login steps before each OS stories.
+        baf.setDelegate(eeBafDelegate);
 
         for (DataPrepStory story : osStories) {
             story.run();

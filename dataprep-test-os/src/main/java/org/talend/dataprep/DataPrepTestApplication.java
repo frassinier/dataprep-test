@@ -7,12 +7,20 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.talend.dataprep.qa.tests.StoryRunner;
 
+/**
+ * Main application for the DataPrepTestApplication.
+ * Run all the available stories.
+ */
 @SpringBootApplication
 public class DataPrepTestApplication implements ApplicationRunner {
 
     @Autowired
     private StoryRunner storyRunner;
 
+    /**
+     * Main method.
+     * @param args the command line arguments.
+     */
     public static void main(String[] args) {
         SpringApplication.run(DataPrepTestApplication.class, args);
     }
