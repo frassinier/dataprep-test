@@ -17,7 +17,7 @@ public class EEBeforeAndAfterStoryDelegate extends BeforeAndAfterStoryDelegate {
     public void beforeStory() {
         super.beforeStory();
 
-        ssoSteps.whenILogIn("jimmy@dataprep.com", "jimmy");
+        ssoSteps.whenILogIn("fabien@dataprep.com", "fabien");
         ssoSteps.thenIAmLoggedIn();
         ssoSteps.dismissOnBoarding();
     }

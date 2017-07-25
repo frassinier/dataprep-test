@@ -39,6 +39,7 @@ public class SSOSteps extends DataPrepSteps {
     @PostConstruct
     public void init() {
         users.put("Jimmy", new User("jimmy@dataprep.com", "jimmy"));
+        users.put("Fabien", new User("fabien@dataprep.com", "fabien"));
     }
 
 

@@ -8,5 +8,5 @@ I want to login dataprep
 In order to use dataprep
 
 Scenario: login
-When I log in dataprep as jimmy@dataprep.com using jimmy as password
+When I log in dataprep as fabien@dataprep.com using fabien as password
 Then I am logged in dataprep
