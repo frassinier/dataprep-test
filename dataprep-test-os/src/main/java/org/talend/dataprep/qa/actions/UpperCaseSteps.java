@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.springframework.stereotype.Component;
+import org.talend.dataprep.qa.components.OnBoarding;
 import org.talend.dataprep.qa.tests.DataPrepSteps;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
@@ -23,17 +24,11 @@ public class UpperCaseSteps extends DataPrepSteps {
 
     private static final By STEP_SELECTOR = By.cssSelector(".recipe .trigger-container");
 
-    @When("I dismiss on boarding")
-    public void dismissOnBoarding() {
-        final WebElement onBoardingOverlay = wait.until(elementToBeClickable(By.cssSelector(".introjs-skipbutton")));
-        onBoardingOverlay.click();
-        wait.until((d) -> d.findElements(By.cssSelector(".introjs-overlay")).size() == 0);
-    }
-
     @When("I set column $columnName to upper case")
     public void whenISetColumnToUpperCase(String columnName) {
-        // Remove onboarding
-        dismissOnBoarding();
+        // Dismiss OnBoarding
+        OnBoarding onBoarding = new OnBoarding(webDriver);
+        onBoarding.dismiss();
 
         // Set column active
         final WebElement columnHeader = wait.until(elementToBeClickable(By.cssSelector(".grid-header-title[title='" + columnName + "']")));
