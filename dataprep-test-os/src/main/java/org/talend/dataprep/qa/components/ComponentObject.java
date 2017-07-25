@@ -10,13 +10,16 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public abstract class ComponentObject {
+
+    private static final int DEFAULT_TIMEOUT = 120;
+
     protected WebDriver driver;
     protected WebDriverWait wait;
 
     public ComponentObject(WebDriver driver) {
         this.driver = driver;
-        this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        this.wait = new WebDriverWait(driver, 10);
+        this.driver.manage().timeouts().implicitlyWait(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        this.wait = new WebDriverWait(driver, DEFAULT_TIMEOUT);
     }
 
     /**
